@@ -3,7 +3,7 @@ import Template from "../components/Template";
 
 export default function Imprimindo() {
   return (
-    <Template w_image={"h-[386px]"}>
+    <Template w_image={"h-[386px]"} l_top={0}>
       <p className="font-bold text-2xl text-center">
         Sua inscrição foi confirmada ✅
       </p>
