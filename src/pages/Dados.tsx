@@ -1,9 +1,10 @@
-import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import participantes from "../data/participantes.json";
 import HandleButton from "../components/HandleButton";
 import Template from "../components/Template";
 
-interface PartipanteProps {
+interface ParticipanteProps {
   CPF: string;
   Nome: string;
   Evento: string;
@@ -12,60 +13,67 @@ interface PartipanteProps {
 
 export default function Dados() {
   const location = useLocation();
+  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const cpf = queryParams.get("cpf");
 
-  const particpantesString = JSON.stringify(participantes);
-  const particpantesJson = JSON.parse(particpantesString);
+  const lista = participantes as ParticipanteProps[];
+  const participante = lista.find((p) => p.CPF === cpf) || null;
 
-  let participante = particpantesJson.find((p: PartipanteProps) => {
-    return p.CPF === cpf;
-  });
+  // Redireciona para home após 15s se não encontrado
+  useEffect(() => {
+    if (!participante) {
+      const timer = setTimeout(() => navigate("/"), 15000);
+      return () => clearTimeout(timer);
+    }
+  }, [participante, navigate]);
 
-  if (cpf == "") {
-    participante = null;
-  }
+  return (
+    <Template w_image="h-[320px]" l_top={-2}>
+      {/* Container central com padding horizontal para evitar overflow */}
+      <div className="flex flex-col items-center w-90% flex-1 px-30 mb-30">
+        {participante ? (
+          <>
+            {/* Card da pergunta */}
+            
+              <p className="text-[#4d4d4d] font-bold text-2xl text-center mb-5">
+                Os seus dados estão corretos?
+              </p>
+            
+            {/* Card dos dados */}
+            <div className="bg-[white] bg-opacity-20 backdrop-blur-sm p-2 w-full max-w-sm rounded-lg shadow-lg mb-4 space-y-2">
+              <div className="p-4 rounded-md font-semibold bg-[#4d4d4d] text-white text-center text-sm">
+                {participante.Nome}
+              </div>
+              <div className="p-4 rounded-md font-semibold bg-[#4d4d4d] text-white text-center text-sm">
+                {participante.Afiliação}
+              </div>
+              <div className="p-4 rounded-md font-semibold bg-[#4d4d4d] text-white text-center text-sm">
+                {participante.Evento}
+              </div>
+            </div>
 
-  if (participante) {
-    return (
-      <Template w_image="h-[300px]" l_top={0}>
-        <div className="flex flex-col justify-center bg-[rgba(255,255,255,0.9)] h-auto p-5 w-full max-w-md mx-auto space-y-6 shadow-[0_5px_20px_#4d4d4d] rounded-xl text-center">
-          <p className="text-[#4d4d4d] font-bold text-2xl text-center">
-            Os seus dados estão corretos?
-          </p>
-          <div className="mb-4">
-            <div className="mt-1 p-3 rounded-sm font-semibold bg-[#4d4d4d] text-white">
-              {participante.Nome}
-            </div>
+            {/* Card do botão */}
+        
+              <HandleButton
+                width="64"
+                text="Confirmar"
+                link="/imprimindo"
+                color="#f7963e"
+              />
+          
+          </>
+        ) : (
+          <div className="bg-white bg-opacity-70 backdrop-blur-sm p-4 w-full max-w-sm rounded-lg shadow-lg">
+            <p className="font-bold text-xl text-center text-[#4d4d4d]">
+              Inscrição pendente ou não encontrada!
+            </p>
+            <p className="mt-2 text-center text-sm text-[#333]">
+              Você será redirecionado(a) em 15 segundos.
+            </p>
           </div>
-          <div className="mb-4">
-            <div className="mt-1 p-3 bg-[#4d4d4d]  rounded-sm font-semibold text-white">
-              {participante.Afiliação}
-            </div>
-          </div>
-          <div className="mb-4">
-            <div className="mt-1 p-3 rounded-sm bg-[#4d4d4d] font-semibold text-white">
-              {participante.Evento}
-            </div>
-          </div>
-          <div className="flex flex-col items-center space-y-10">
-            <HandleButton
-              width="88"
-              text="Sim! Os meus dados estão corretos"
-              link="/imprimindo"
-              color="#f7963e"
-            />
-          </div>
-        </div>
-      </Template>
-    );
-  } else {
-    return (
-      <Template w_image="h-[386px]" l_top={10}>
-          <p className="font-bold text-2xl text-center">
-            A sua inscrição possui alguma pendência <br /> ou não foi encontrada em nosso sistema! <br /> <br /> Por favor, dirija-se ao balcão de atendimento <br /> para receber suporte.
-          </p>
-      </Template>
-    );
-  }
+        )}
+      </div>
+    </Template>
+  );
 }

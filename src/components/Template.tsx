@@ -31,6 +31,13 @@ export default function Template({ children, w_image, l_top }: Props) {
     };
   }, []);
 
+  // Data atual formatada em pt-BR
+  const today = new Date().toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+
   return (
     <div
       className="animated-gradient relative flex flex-col overflow-hidden h-screen text-white"
@@ -50,7 +57,8 @@ export default function Template({ children, w_image, l_top }: Props) {
         </div>
       </div>
       <footer className="flex justify-center p-3 items-center mt-auto">
-        <p className="text-s">16 de maio</p>
+        {/* Data dinâmica no footer */}
+        <p className="text-sm text-[#fff]">{today}</p>
       </footer>
     </div>
   );
