@@ -1,8 +1,14 @@
 [
     {
-        "Nome": "Maurício Costa Pires",
+        "Nome": "Mauricio Costa Pires",
         "CPF": "03068997100",
-        "Afiliação": "UFRN - Universidade Federal do Rio Grande do Norte",
+        "Afiliação": "Universidade Federal do Rio Grande do Norte",
         "Evento": "SBRC"
-    }
+    },
+    {
+        "Nome": "Pedro Davi",
+        "CPF": "04479797017",
+        "Afiliação": "Instituto Federal do Rio Grande do Norte",
+        "Evento": "SBRC"
+        }
 ]

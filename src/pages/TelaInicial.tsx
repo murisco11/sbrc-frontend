@@ -4,7 +4,6 @@ import Template from "../components/Template";
 export default function TelaInicial() {
   return (
     <Template w_image="h-[386px]" l_top={10}>
-      
       <>
         <h1 className="text-2xl font-bold text-center">
           Seja muito bem-vindo (a)

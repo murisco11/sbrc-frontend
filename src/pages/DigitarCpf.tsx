@@ -70,7 +70,7 @@ export default function DigitarCpf() {
             className="font-bold rounded-lg text-lg w-74 h-16 bg-[#4d4d4d] text-white flex items-center justify-center shadow-xl hover:bg-[#2e2e2e] transition duration-300"
             onClick={redirectPage}
           >
-            Verficiar CPF
+            Verificar CPF
           </button>
         </div>
       </>

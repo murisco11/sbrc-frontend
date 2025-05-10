@@ -25,6 +25,14 @@ export default function Dados() {
     if (!participante) {
       const timer = setTimeout(() => navigate("/"), 15000);
       return () => clearTimeout(timer);
+    } else {
+      const arrayDeDados = [
+        participante.Nome,
+        participante.Afiliação,
+        participante.Evento,
+      ];
+
+      localStorage.setItem("participante", JSON.stringify(arrayDeDados));
     }
   }, [participante, navigate]);
 
@@ -35,11 +43,11 @@ export default function Dados() {
         {participante ? (
           <>
             {/* Card da pergunta */}
-            
-              <p className="text-[#4d4d4d] font-bold text-2xl text-center mb-5">
-                Os seus dados estão corretos?
-              </p>
-            
+
+            <p className="font-bold text-2xl text-center mb-5">
+              Os seus dados estão corretos?
+            </p>
+
             {/* Card dos dados */}
             <div className="bg-[white] bg-opacity-20 backdrop-blur-sm p-2 w-full max-w-sm rounded-lg shadow-lg mb-4 space-y-2">
               <div className="p-4 rounded-md font-semibold bg-[#4d4d4d] text-white text-center text-sm">
@@ -54,14 +62,13 @@ export default function Dados() {
             </div>
 
             {/* Card do botão */}
-        
-              <HandleButton
-                width="64"
-                text="Confirmar"
-                link="/imprimindo"
-                color="#f7963e"
-              />
-          
+
+            <HandleButton
+              width="64"
+              text="Confirmar"
+              link="/imprimindo"
+              color="#f7963e"
+            />
           </>
         ) : (
           <div className="bg-white bg-opacity-70 backdrop-blur-sm p-4 w-full max-w-sm rounded-lg shadow-lg">
