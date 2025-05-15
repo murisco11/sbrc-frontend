@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import Spinner from "../components/Spinner";
 import { useNavigate } from "react-router-dom";
@@ -16,29 +15,25 @@ export default function Imprimindo() {
     if (participanteRaw) {
       try {
         const arrayDeStrings = JSON.parse(participanteRaw);
-        const arrayFinal = arrayDeStrings.map((e: string) => {
-          return e.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+        const nomeArray = arrayDeStrings[0].replace(" ", "_");
+        const instituicaoArray = arrayDeStrings[1].replace(" ", "_");
+
+        const url = `http://127.0.0.1:5000/gerar_e_imprimir_pdf?nome=${encodeURIComponent(
+          nomeArray
+        )}&instituicao=${encodeURIComponent(instituicaoArray)}`;
+
+        const response = await fetch(url, {
+          method: "GET",
         });
 
-        const response = await fetch("http://localhost:3000/receber-array", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ arrayFinal }),
-        });
+        console.log("Response", response);
 
-        if (response.ok) {
-          const data = await response.json();
-          console.log("Resposta do servidor:", data);
+        const intervalo = setInterval(() => {
           router("/concluido");
-        } else {
-          console.error(
-            "Erro na requisição:",
-            response.status,
-            await response.text()
-          );
-        }
+          clearInterval(intervalo);
+        }, 5000);
+
       } catch (error) {
         console.error("Erro ao enviar o participante:", error);
       }
