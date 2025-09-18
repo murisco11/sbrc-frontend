@@ -18,10 +18,13 @@ export default function Imprimindo() {
 
         const nomeArray = arrayDeStrings[0].replace(" ", "_");
         const instituicaoArray = arrayDeStrings[1].replace(" ", "_");
+        const eventoArray = arrayDeStrings[2].replace(/ /g, "_");
 
         const url = `http://127.0.0.1:5000/gerar_e_imprimir_pdf?nome=${encodeURIComponent(
           nomeArray
-        )}&instituicao=${encodeURIComponent(instituicaoArray)}`;
+        )}&instituicao=${encodeURIComponent(
+          instituicaoArray
+        )}&evento=${encodeURIComponent(eventoArray)}`;
 
         const response = await fetch(url, {
           method: "GET",
@@ -33,7 +36,6 @@ export default function Imprimindo() {
           router("/concluido");
           clearInterval(intervalo);
         }, 5000);
-
       } catch (error) {
         console.error("Erro ao enviar o participante:", error);
       }
