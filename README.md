@@ -1,6 +1,6 @@
 # 📋 Cadastro de Participantes - Evento em Natal/RN
 
-Este é um projeto freelancer desenvolvido para um evento realizado na capital do Rio Grande do Norte (Natal/RN).  
+Este é um projeto freelancer desenvolvido para um evento realizado na capital do Rio Grande do Norte (Natal/RN), o SBRC 45 anos.  
 O sistema permite o **cadastramento rápido e organizado de participantes** através do CPF, exibindo seus dados e permitindo a **impressão imediata das informações**.
 
 ---
@@ -19,7 +19,6 @@ Para rodar a aplicação, digite no terminal:
 npm run dev
 ```
 
-
 ## 🚀 Tecnologias Utilizadas
 
 O projeto foi desenvolvido utilizando tecnologias modernas do ecossistema JavaScript:
@@ -29,8 +28,3 @@ O projeto foi desenvolvido utilizando tecnologias modernas do ecossistema JavaSc
 - **[React 18](https://react.dev/)** – Biblioteca principal de construção de interfaces
 - **[Tailwind](https://tailwindcss.com/)** – Biblioteca de componentes para UI com foco em acessibilidade e produtividade
 - **[Framer Motion](https://www.framer.com/motion/)** – Animações suaves e performáticas
-
----
-
-## 🖥️ Telas
-
